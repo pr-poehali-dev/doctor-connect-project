@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
+import ChatInterface from '@/components/ChatInterface';
 
 interface Comment {
   id: number;
@@ -155,13 +156,21 @@ export default function Index() {
               <span className="text-xl font-semibold">MedConnect</span>
             </div>
             <nav className="hidden md:flex gap-6">
-              <Button variant="ghost" className="text-sm">
+              <Button 
+                variant="ghost" 
+                className="text-sm"
+                onClick={() => setActiveTab('feed')}
+              >
                 <Icon name="Home" className="mr-2 h-4 w-4" />
                 Главная
               </Button>
-              <Button variant="ghost" className="text-sm">
-                <Icon name="Users" className="mr-2 h-4 w-4" />
-                Сообщество
+              <Button 
+                variant="ghost" 
+                className="text-sm"
+                onClick={() => setActiveTab('messages')}
+              >
+                <Icon name="MessageCircle" className="mr-2 h-4 w-4" />
+                Сообщения
               </Button>
               <Button variant="ghost" className="text-sm">
                 <Icon name="BookOpen" className="mr-2 h-4 w-4" />
@@ -184,8 +193,9 @@ export default function Index() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-6">
+              <TabsList className="grid w-full grid-cols-4 mb-6">
                 <TabsTrigger value="feed">Лента</TabsTrigger>
+                <TabsTrigger value="messages">Сообщения</TabsTrigger>
                 <TabsTrigger value="cases">Кейсы</TabsTrigger>
                 <TabsTrigger value="consultations">Консультации</TabsTrigger>
               </TabsList>
@@ -248,6 +258,10 @@ export default function Index() {
                     </CardContent>
                   </Card>
                 ))}
+              </TabsContent>
+
+              <TabsContent value="messages" className="mt-0">
+                <ChatInterface />
               </TabsContent>
 
               <TabsContent value="cases">
